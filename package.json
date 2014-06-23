@@ -1,0 +1,34 @@
+{
+  "author": "Toadums",
+  "name": "toadumsrtc",
+  "description": "Chat, bro",
+  "version": "0.0.1-24",
+  "homepage": "http://github.com/bradens/sassy-brunch-minimal",
+  "repository": "http://github.com/bradens/sassy-brunch-minimal",
+  "scripts": {
+    "start": "brunch watch --server"
+  },
+  "dependencies": {
+    "coffee-script": "=1.6.3",
+    "javascript-brunch": ">= 1.0 < 1.8",
+    "css-brunch": ">= 1.0 < 1.8",
+    "uglify-js-brunch": ">= 1.0 < 1.8",
+    "clean-css-brunch": ">= 1.0 < 1.8",
+    "auto-reload-brunch": "~1.7.1",
+    "coffee-script-brunch": "~1.7.3",
+    "sass-brunch": "~1.7.2",
+    "node-bourbon": "~1.0.0",
+    "font-awesome": "4.0.3",
+    "express": "^4.4.3",
+    "node-uuid": "^1.4.1",
+    "underscore": "^1.6.0",
+    "ws": "^0.4.31"
+  },
+  "devDependencies": {
+    "mocha": "~1.11.0"
+  },
+  "subdomain": "toadumsrtc",
+  "engines": {
+    "node": "0.10.x"
+  }
+}

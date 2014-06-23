@@ -1,0 +1,23 @@
+{
+  "name": "brunch-with-sass-minimal",
+  "version": "0.0.1",
+  "main": "public/app.js",
+  "repository": "http://github.com/bradens/brunch-with-sass-minimal",
+  "dependencies": {
+    "bootstrap-sass": "~3.0",
+    "jquery": "~2.0.3",
+    "underscore": "~1.5.2",
+    "console-polyfill": "~0.1.0",
+    "normalize-css": "~2.1.2"
+  },
+  "overrides": {
+    "bootstrap-sass": {
+      "ignore": [
+        "*"
+      ]
+    },
+    "underscore": {
+      "main": "underscore.js"
+    }
+  }
+}
