@@ -2,17 +2,56 @@ module.exports = class Videochat
   constructor: (@socket) ->
     @socket.onmessage = @onMessage
 
+    moz = !!navigator.mozGetUserMedia
+    chromeVersion = !!navigator.mozGetUserMedia ? 0 : parseInt(navigator.userAgent.match( /Chrom(e|ium)\/([0-9]+)\./ )[2])
+
+
     # True if the remote user has created a peerconnection and is ready to go
     @peerReady = false
 
     @localVideo = $("#localVideo").get(0)
     @remoteVideo = $("#remoteVideo").get(0)
 
+    iceServers = []
+
+    if moz
+        iceServers.push
+            url: 'stun:23.21.150.121'
+
+        iceServers.push
+            url: 'stun:stun.services.mozilla.com'
+
+    if not moz
+        iceServers.push
+            url: 'stun:stun.l.google.com:19302'
+
+        iceServers.push
+            url: 'stun:stun.anyfirewall.com:3478'
+
+
+    if not moz and chromeVersion < 28
+        iceServers.push
+            url: 'turn:homeo@turn.bistri.com:80'
+            credential: 'homeo'
+
+
+    if not moz and chromeVersion >= 28
+        iceServers.push
+            url: 'turn:turn.bistri.com:80'
+            credential: 'homeo'
+            username: 'homeo'
+
+
+        iceServers.push
+            url: 'turn:turn.anyfirewall.com:443?transport=tcp'
+            credential: 'webrtc'
+            username: 'webrtc'
+
     @pcConfig =
-      iceServers: [
-        url: "stun:stun.l.google.com:19302"
-        url: "turn:numb.viagenie.ca", credential: "drfunk", username: "toadums@hotmail.com"
-      ]
+        iceServers: iceServers
+
+
+
 
     # Request user media
     getUserMedia {video: true, audio: true}, @gotMedia, @getUserMediaError
