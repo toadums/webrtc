@@ -23,3 +23,9 @@ module.exports = class Application
           room: room
 
       vc = new Videochat socket
+
+      $("#hangup").on "click", () ->
+        socket.send JSON.stringify
+          type: "hangup"
+
+        vc.destroy()

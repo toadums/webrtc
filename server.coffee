@@ -52,14 +52,11 @@ class Server
     user = new User @, socket
     socket.on 'close', () =>
 
-      @sendHangupMessage user
-
       if (roomId = user.roomId)
         @rooms[roomId].splice @rooms[roomId].indexOf(user), 1
 
         if @rooms[roomId].length is 0
           delete @rooms[roomId]
-
 
   joinRoom: (client) =>
     room = (@rooms[client.roomId] ?= [])
@@ -75,13 +72,6 @@ class Server
           initiator: first
         first = false
         socket.send msg
-
-  sendHangupMessage: (client) =>
-    message = JSON.stringify
-      type: "peerLeft"
-
-    @broadcast message, client
-
 
   broadcast: (message, client) =>
     room = @rooms[client.roomId]

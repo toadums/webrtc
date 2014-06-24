@@ -50,9 +50,6 @@ module.exports = class Videochat
     @pcConfig =
         iceServers: iceServers
 
-
-
-
     # Request user media
     getUserMedia {video: true, audio: true}, @gotMedia, @getUserMediaError
     @started = false
@@ -130,6 +127,9 @@ module.exports = class Videochat
         if @initiator and @pc
           @call()
 
+      when "hangup"
+        @killConnection()
+
 
   #############################
   ### Setup                 ###
@@ -202,7 +202,6 @@ module.exports = class Videochat
   # TODO: There will likely be more cleanup here
   killConnection: =>
     @connectedPeers = 0
-    @createPeerConnection()
     @peerReady = false
     @receivedOffer = false
 
@@ -291,6 +290,11 @@ module.exports = class Videochat
         @connectedPeers--
       else
         @killConnection()
+        @createPeerConnection()
 
   onSignalStateChanged: (event) =>
     console.log "!!!!  Signal State Changed: ", event.srcElement?.signalingState
+
+  destroy: =>
+    @pc.close()
+    @killConnection()
